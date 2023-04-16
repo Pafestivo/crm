@@ -31,6 +31,10 @@ function App() {
     ])
   }
 
+  const deleteCustomer = (id) => {
+    setCustomers(customers.filter((customer) => customer.id !== id))
+  }
+
   useState(() => {
     loadCustomers()
   }, [customers])
@@ -38,7 +42,7 @@ function App() {
   return (
     <div className="App">
       {customers.map((customer) => (
-        <Customer key={customer.id} customer={customer} />
+        <Customer key={customer.id} customer={customer} deleteCustomer={deleteCustomer}/>
       ))}
       {showCustomerInput ? (
         <div className="new-customer-input">

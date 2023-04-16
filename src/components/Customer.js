@@ -1,6 +1,7 @@
 import React from "react";
 
-const Customer = ({ customer }) => {
+const Customer = ({ customer, deleteCustomer }) => {
+
   return (
     <div className="customer">
       <p>{customer.name}</p>
@@ -8,6 +9,7 @@ const Customer = ({ customer }) => {
       <p>{customer.phone}</p>
       <p>{customer.status}</p>
       <p>{customer.lastChange}</p>
+      <button onClick={() => deleteCustomer(customer.id)}>Delete Customer</button>
     </div>
   )
 }
