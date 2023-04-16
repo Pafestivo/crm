@@ -1,15 +1,15 @@
 import React from "react";
 
-const Customer = () => {
+const Customer = ({ customer }) => {
   return (
-    <div>
-      <form>
-        <input type="text" name="customer-name" placeholder="Customer Name" />
-        <input type="email" name="customer-email" placeholder="Customer Email" />
-        <input type="phone" name="customer-phone" placeholder="Customer Phone" />
-      </form>
+    <div className="customer">
+      <p>{customer.name}</p>
+      <p>{customer.email}</p>
+      <p>{customer.phone}</p>
+      <p>{customer.status}</p>
+      <p>{customer.lastChange}</p>
     </div>
-  );
+  )
 }
 
 export default Customer;
