@@ -6,6 +6,7 @@ const CustomerInput = ({ addCustomer }) => {
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
 
+  // update the state of the input fields
   const updateName = (e) => {
     setName(e.target.value)
   }
@@ -18,10 +19,28 @@ const CustomerInput = ({ addCustomer }) => {
     setPhone(e.target.value)
   }
 
+  // handle the form submission
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    // Validation
+    if(!name || !email || !phone) {
+      alert('Please fill out all fields')
+      return
+    }
+    if(!email.includes('@') || !email.includes('.')) {
+      alert('Please enter a valid email address')
+      return
+    }
+    if(phone.length !== 10 || isNaN(phone) || phone[0] !== '0') {
+      alert('Please enter a valid phone number')
+      return
+    }
+
     addCustomer(name, email, phone)
   }
+
+  
   return (
     <div>
       <form>
