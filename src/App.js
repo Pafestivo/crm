@@ -16,6 +16,11 @@ function App() {
     setLoading(false);
   }
 
+  // on page-load
+  useEffect(() => {
+    loadCustomers();
+  }, []);
+
   const toggleAddNewCustomer = () => {
     setShowAddNewCustomer(!showAddNewCustomer);
   }
@@ -32,10 +37,6 @@ function App() {
     await deleteCustomerFromServer(id);
     loadCustomers();
   }
-
-  useEffect(() => {
-    loadCustomers();
-  }, []);
 
   return (
     <div>

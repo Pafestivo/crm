@@ -38,4 +38,22 @@ const deleteCustomerFromServer = async (id) => {
   return customer;
 }
 
-export { getCustomers, getCustomer, addCustomerToServer, deleteCustomerFromServer }
+const updateCustomerOnServer = async (id, name, email, phone, status) => {
+  const response = await fetch(`${customersURL}/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: name,
+      email: email,
+      phone: phone,
+      status: status,
+      lastChange: new Date().toLocaleString()
+    })
+  });
+  const customer = await response.json();
+  return customer;
+}
+
+export { getCustomers, getCustomer, addCustomerToServer, deleteCustomerFromServer, updateCustomerOnServer }
