@@ -1,14 +1,21 @@
 import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from "react-router-dom";
 
-const CustomerRow = ({ customer }) => {
+const CustomerRow = ({ customer, deleteCustomer }) => {
 
   return (
-    <div className="customer-row">
-      <p>{customer.name}</p>
-      <p>{customer.email}</p>
-      <p>{customer.phone}</p>
-      <p>{customer.status}</p>
-      <p>{customer.lastChange}</p>
+    <div>
+      <div>
+        <Link to={`/customers/${customer.id}`}>
+          <p>{customer.name}</p>
+        </Link>
+          <p>{customer.email}</p>
+          <p>{customer.phone}</p>
+          <p>{customer.status}</p>
+          <p>{customer.lastChange}</p>
+        <button onClick={() => deleteCustomer(customer.id)}>Delete Customer</button>
+      </div>
     </div>
   )
 }

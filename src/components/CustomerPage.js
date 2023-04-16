@@ -23,16 +23,16 @@ const CustomerPage = () => {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div className="customer-page">
+        <div>
           <h1>Customer: {customer.name}</h1>
           <p>Email: {customer.email}</p>
           <p>Phone: {customer.phone}</p>
           <p>Status: {customer.status}</p>
           <p>Last modified: {customer.lastChange}</p>
-          <div className="customer-notes">
+          <div>
             <h2>Notes</h2>
-            {customer.notes.map((note) => (
-              <div className="single-note" key={note.id}>
+            {customer.notes && customer.notes.map((note) => (
+              <div key={note.id}>
                 <p>{note.date} - {note.note}</p>
               </div>
             ))}
