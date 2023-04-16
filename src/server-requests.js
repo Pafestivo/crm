@@ -56,4 +56,65 @@ const updateCustomerOnServer = async (id, name, email, phone, status) => {
   return customer;
 }
 
-export { getCustomers, getCustomer, addCustomerToServer, deleteCustomerFromServer, updateCustomerOnServer }
+const addNoteToServer = async (customerId, note, currentCustomer) => {
+  const response = await fetch(`${customersURL}/${customerId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ...currentCustomer,
+      notes: currentCustomer.notes ? [
+        ...currentCustomer.notes,
+        {
+          id: crypto.randomUUID(),
+          note: note,
+          date: new Date().toLocaleString()
+        }
+      ] : [{
+          id: crypto.randomUUID(),
+          note: note,
+          date: new Date().toLocaleString()
+        }]
+    })
+  });
+  const customer = await response.json();
+  return customer;
+}
+
+const deleteNoteFromServer = async (customerId, noteId, currentCustomer) => {
+  const response = await fetch(`${customersURL}/${customerId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ...currentCustomer,
+      notes: currentCustomer.notes.filter((note) => note.id !== noteId)
+    })
+  });
+  const customer = await response.json();
+  return customer;
+}
+
+
+// Edit Note - Work In Progress
+// const updateNoteOnServer = async (customerId, noteId, note, currentCustomer) => {
+//   const response = await fetch(`${customersURL}/${customerId}`, {
+//     method: 'PATCH',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//       ...currentCustomer,
+//       notes: [
+//         ...currentCustomer.notes,
+//         currentCustomer.notes.find((note) => note.id === noteId).note = note,
+//       ]
+//     })
+//   });
+//   const customer = await response.json();
+//   return customer;
+// }
+
+export { getCustomers, getCustomer, addCustomerToServer, deleteCustomerFromServer, updateCustomerOnServer, addNoteToServer,deleteNoteFromServer }
