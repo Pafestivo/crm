@@ -1,43 +1,43 @@
 import React, { useState } from "react";
 
-const CustomerInput = ({ addCustomer }) => {
+const AddNewCustomer = ({ addCustomer }) => {
 
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
 
   // update the state of the input fields
   const updateName = (e) => {
-    setName(e.target.value)
+    setName(e.target.value);
   }
 
   const updateEmail = (e) => {
-    setEmail(e.target.value)
+    setEmail(e.target.value);
   }
 
   const updatePhone = (e) => {
-    setPhone(e.target.value)
+    setPhone(e.target.value);
   }
 
   // handle the form submission
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     // Validation
     if(!name || !email || !phone) {
-      alert('Please fill out all fields')
-      return
+      alert('Please fill out all fields');
+      return;
     }
     if(!email.includes('@') || !email.includes('.')) {
-      alert('Please enter a valid email address')
-      return
+      alert('Please enter a valid email address');
+      return;
     }
     if(phone.length !== 10 || isNaN(phone) || phone[0] !== '0') {
-      alert('Please enter a valid phone number')
-      return
+      alert('Please enter a valid phone number');
+      return;
     }
 
-    addCustomer(name, email, phone)
+    addCustomer(name, email, phone);
   }
 
   
@@ -53,4 +53,4 @@ const CustomerInput = ({ addCustomer }) => {
   );
 }
 
-export default CustomerInput;
+export default AddNewCustomer;

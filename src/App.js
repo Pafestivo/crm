@@ -1,23 +1,24 @@
 import React, { useState } from "react";
-import CustomerInput from "./components/CustomerInput";
+import AddNewCustomer from "./components/AddNewCustomer";
 import { getCustomers } from "./server-requests";
-import Customer from "./components/Customer";
+import CustomerRow from "./components/CustomerRow";
+import { Link } from "react-router-dom";
 
 function App() {
-  const [customers, setCustomers] = useState([])
-  const [showCustomerInput, setShowCustomerInput] = useState(false)
+  const [customers, setCustomers] = useState([]);
+  const [showAddNewCustomer, setShowAddNewCustomer] = useState(false);
 
   const loadCustomers = async () => {
-    const customers = await getCustomers()
-    setCustomers(customers)
+    const customers = await getCustomers();
+    setCustomers(customers);
   }
 
-  const toggleCustomerInput = () => {
-    setShowCustomerInput(!showCustomerInput)
+  const toggleAddNewCustomer = () => {
+    setShowAddNewCustomer(!showAddNewCustomer);
   }
   
   const addCustomer = (name, email, phone) => {
-    toggleCustomerInput()
+    toggleAddNewCustomer();
     setCustomers([
       ...customers, 
       {
@@ -28,29 +29,34 @@ function App() {
         status: 'Pick a status',
         lastChange: new Date().toLocaleString()
       }
-    ])
+    ]);
   }
 
   const deleteCustomer = (id) => {
-    setCustomers(customers.filter((customer) => customer.id !== id))
+    setCustomers(customers.filter((customer) => customer.id !== id));
   }
 
   useState(() => {
-    loadCustomers()
-  }, [customers])
+    loadCustomers();
+  }, [customers]);
 
   return (
     <div className="App">
       {customers.map((customer) => (
-        <Customer key={customer.id} customer={customer} deleteCustomer={deleteCustomer}/>
+        <div className="customer" key={customer.id}>
+          <Link to={`/customer/${customer.id}`}>
+            <CustomerRow key={customer.id} customer={customer} />
+          </Link>
+          <button onClick={() => deleteCustomer(customer.id)}>Delete Customer</button>
+        </div>
       ))}
-      {showCustomerInput ? (
+      {showAddNewCustomer ? (
         <div className="new-customer-input">
-          <CustomerInput addCustomer={addCustomer} />
-          <button onClick={toggleCustomerInput}>Cancel</button>
+          <AddNewCustomer addCustomer={addCustomer} />
+          <button onClick={toggleAddNewCustomer}>Cancel</button>
         </div>
       ) : (
-        <button onClick={toggleCustomerInput}>Add New Customer</button>
+        <button onClick={toggleAddNewCustomer}>Add New Customer</button>
       )}
     </div>
   );
