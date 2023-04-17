@@ -20,6 +20,7 @@ const CustomerPage = ({ addNoteToServer }) => {
 
   useEffect(() => {
     updateCustomer();
+    // eslint-disable-next-line
   }, []);
 
   const toggleAddNewNote = () => {

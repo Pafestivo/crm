@@ -29,6 +29,7 @@ const EditNote = () => {
 
   useEffect(() => {
     updateCustomer();
+    // eslint-disable-next-line
   }, []);
 
   // update the state of the input fields after customer was set
@@ -36,6 +37,7 @@ const EditNote = () => {
     if(customer) {
       setNoteDescription(customer.notes[noteIndex].description);
     }
+    // eslint-disable-next-line
   }, [customer])
 
   const handleSubmit = async (e) => {
