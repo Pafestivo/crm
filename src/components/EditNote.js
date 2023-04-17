@@ -63,7 +63,7 @@ const EditNote = () => {
               <input type="textarea" defaultValue={customer.notes[noteIndex].description} onChange={updateNote} />
               <button type="submit" className="btn btn-success" onClick={handleSubmit}>Save</button>
             </form>
-            <button className="btn btn-danger">Cancel</button>
+            <button onClick={() => navigate(`/customers/${customer.id}`)} className="btn btn-danger">Cancel</button>
           </div>
         )}
     </div>
