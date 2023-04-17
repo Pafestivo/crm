@@ -1,5 +1,5 @@
 const customersURL = 'https://crm-server-2ja0.onrender.com/customers';
-const options = {
+const timeFormat = {
   year: '2-digit',
   month: '2-digit',
   day: '2-digit',
@@ -31,7 +31,7 @@ const addCustomerToServer = async (name, email, phone) => {
       email: email,
       phone: phone,
       status: 'Pick a status',
-      lastChange: new Date().toLocaleString(undefined, options)
+      lastChange: new Date().toLocaleString(undefined, timeFormat)
 
     })
   });
@@ -59,7 +59,7 @@ const updateCustomerOnServer = async (customer, id, name, email, phone, status) 
       email: email,
       phone: phone,
       status: status,
-      lastChange: new Date().toLocaleString(undefined, options)
+      lastChange: new Date().toLocaleString(undefined, timeFormat)
 
     })
   });
@@ -75,20 +75,20 @@ const addNoteToServer = async (customerId, noteDescription, currentCustomer) => 
     },
     body: JSON.stringify({
       ...currentCustomer,
-      lastChange: new Date().toLocaleString(undefined, options)
+      lastChange: new Date().toLocaleString(undefined, timeFormat)
 ,
       notes: currentCustomer.notes ? [
         ...currentCustomer.notes,
         {
           id: crypto.randomUUID(),
           description: noteDescription,
-          date: new Date().toLocaleString(undefined, options)
+          date: new Date().toLocaleString(undefined, timeFormat)
 
         }
       ] : [{
           id: crypto.randomUUID(),
           description: noteDescription,
-          date: new Date().toLocaleString(undefined, options)
+          date: new Date().toLocaleString(undefined, timeFormat)
 
         }]
     })
@@ -116,7 +116,7 @@ const deleteNoteFromServer = async (customerId, noteId, currentCustomer) => {
 const updateNoteOnServer = async (customer, noteId, newNote) => {
   const updatedNotes = customer.notes.map((note) => {
     if (note.id === noteId) {
-      return { ...note, description: newNote, date: new Date().toLocaleString(undefined, options)};
+      return { ...note, description: newNote, date: new Date().toLocaleString(undefined, timeFormat)};
     } else {
       return note;
     }
@@ -129,7 +129,7 @@ const updateNoteOnServer = async (customer, noteId, newNote) => {
     },
     body: JSON.stringify({
       ...customer,
-      lastChange: new Date().toLocaleString(undefined, options)
+      lastChange: new Date().toLocaleString(undefined, timeFormat)
 ,
       notes: updatedNotes
     })
