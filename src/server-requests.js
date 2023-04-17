@@ -1,11 +1,12 @@
 const customersURL = 'https://crm-server-2ja0.onrender.com/customers';
-const formattedCurrentTime = new Date().toLocaleString(undefined, {
+const options = {
   year: '2-digit',
   month: '2-digit',
   day: '2-digit',
   hour: 'numeric',
   minute: 'numeric',
-})
+}
+
 
 const getCustomers = async () => {
   const response = await fetch(customersURL);
@@ -30,7 +31,8 @@ const addCustomerToServer = async (name, email, phone) => {
       email: email,
       phone: phone,
       status: 'Pick a status',
-      lastChange: formattedCurrentTime
+      lastChange: new Date().toLocaleString(undefined, options)
+
     })
   });
   const customer = await response.json();
@@ -57,7 +59,8 @@ const updateCustomerOnServer = async (customer, id, name, email, phone, status) 
       email: email,
       phone: phone,
       status: status,
-      lastChange: formattedCurrentTime
+      lastChange: new Date().toLocaleString(undefined, options)
+
     })
   });
   const updatedCustomer = await response.json();
@@ -72,17 +75,21 @@ const addNoteToServer = async (customerId, noteDescription, currentCustomer) => 
     },
     body: JSON.stringify({
       ...currentCustomer,
+      lastChange: new Date().toLocaleString(undefined, options)
+,
       notes: currentCustomer.notes ? [
         ...currentCustomer.notes,
         {
           id: crypto.randomUUID(),
           description: noteDescription,
-          date: formattedCurrentTime
+          date: new Date().toLocaleString(undefined, options)
+
         }
       ] : [{
           id: crypto.randomUUID(),
           description: noteDescription,
-          date: formattedCurrentTime
+          date: new Date().toLocaleString(undefined, options)
+
         }]
     })
   });
@@ -109,13 +116,7 @@ const deleteNoteFromServer = async (customerId, noteId, currentCustomer) => {
 const updateNoteOnServer = async (customer, noteId, newNote) => {
   const updatedNotes = customer.notes.map((note) => {
     if (note.id === noteId) {
-      return { ...note, description: newNote, date: new Date().toLocaleString(undefined, {
-        year: '2-digit',
-        month: '2-digit',
-        day: '2-digit',
-        hour: 'numeric',
-        minute: 'numeric',
-      })};
+      return { ...note, description: newNote, date: new Date().toLocaleString(undefined, options)};
     } else {
       return note;
     }
@@ -128,7 +129,8 @@ const updateNoteOnServer = async (customer, noteId, newNote) => {
     },
     body: JSON.stringify({
       ...customer,
-      lastChange: formattedCurrentTime,
+      lastChange: new Date().toLocaleString(undefined, options)
+,
       notes: updatedNotes
     })
   });

@@ -20,7 +20,6 @@ const CustomerPage = ({ addNoteToServer }) => {
 
   useEffect(() => {
     updateCustomer();
-
   }, []);
 
   const toggleAddNewNote = () => {
