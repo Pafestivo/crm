@@ -1,4 +1,11 @@
 const customersURL = 'https://crm-server-2ja0.onrender.com/customers';
+const formattedCurrentTime = new Date().toLocaleString(undefined, {
+  year: '2-digit',
+  month: '2-digit',
+  day: '2-digit',
+  hour: 'numeric',
+  minute: 'numeric',
+})
 
 const getCustomers = async () => {
   const response = await fetch(customersURL);
@@ -23,7 +30,7 @@ const addCustomerToServer = async (name, email, phone) => {
       email: email,
       phone: phone,
       status: 'Pick a status',
-      lastChange: new Date().toLocaleString()
+      lastChange: formattedCurrentTime
     })
   });
   const customer = await response.json();
@@ -38,25 +45,26 @@ const deleteCustomerFromServer = async (id) => {
   return customer;
 }
 
-const updateCustomerOnServer = async (id, name, email, phone, status) => {
+const updateCustomerOnServer = async (customer, id, name, email, phone, status) => {
   const response = await fetch(`${customersURL}/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
+      ...customer,
       name: name,
       email: email,
       phone: phone,
       status: status,
-      lastChange: new Date().toLocaleString()
+      lastChange: formattedCurrentTime
     })
   });
-  const customer = await response.json();
-  return customer;
+  const updatedCustomer = await response.json();
+  return updatedCustomer;
 }
 
-const addNoteToServer = async (customerId, note, currentCustomer) => {
+const addNoteToServer = async (customerId, noteDescription, currentCustomer) => {
   const response = await fetch(`${customersURL}/${customerId}`, {
     method: 'PATCH',
     headers: {
@@ -68,13 +76,13 @@ const addNoteToServer = async (customerId, note, currentCustomer) => {
         ...currentCustomer.notes,
         {
           id: crypto.randomUUID(),
-          note: note,
-          date: new Date().toLocaleString()
+          description: noteDescription,
+          date: formattedCurrentTime
         }
       ] : [{
           id: crypto.randomUUID(),
-          note: note,
-          date: new Date().toLocaleString()
+          description: noteDescription,
+          date: formattedCurrentTime
         }]
     })
   });
@@ -101,7 +109,7 @@ const deleteNoteFromServer = async (customerId, noteId, currentCustomer) => {
 // Edit Note - Work In Progress
 const updateNoteOnServer = async (customer, noteId, newNote) => {
   const updatedNotes = customer.notes.map((note) => {
-    if (note.id === +noteId) {
+    if (note.id === noteId) {
       return { ...note, description: newNote, date: new Date().toLocaleString(undefined, {
         year: '2-digit',
         month: '2-digit',

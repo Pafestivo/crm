@@ -10,20 +10,20 @@ const EditNote = () => {
 
   const [customer, setCustomer] = useState(null);
   const [noteIndex, setNoteIndex] = useState(null);
-  const [note, setNote] = useState('')
+  const [noteDescription, setNoteDescription] = useState('')
   const [loading, setLoading] = useState(true);
 
   const customerId = splitUrl[splitUrl.length - 3];
   const noteId = splitUrl[splitUrl.length - 2];
   
   const updateNote = (e) => {
-    setNote(e.target.value);
+    setNoteDescription(e.target.value);
   }
 
   const updateCustomer = async () => {
     const currentCustomer = await getCustomer(customerId);
     setCustomer(currentCustomer);
-    setNoteIndex(currentCustomer.notes.findIndex(note => note.id === +noteId));
+    setNoteIndex(currentCustomer.notes.findIndex(note => note.id === noteId));
     setLoading(false);
   }
 
@@ -34,7 +34,7 @@ const EditNote = () => {
   // update the state of the input fields after customer was set
   useEffect(() => {
     if(customer) {
-      setNote(customer.notes[noteIndex].description);
+      setNoteDescription(customer.notes[noteIndex].description);
     }
   }, [customer])
 
@@ -42,12 +42,12 @@ const EditNote = () => {
     e.preventDefault();
 
     // Validation
-    if(note === '') {
+    if(noteDescription === '') {
       alert('Please fill out all fields');
       return;
     }
     setLoading(true);
-    await updateNoteOnServer(customer, noteId, note)
+    await updateNoteOnServer(customer, noteId, noteDescription)
     setLoading(false);
     navigate(`/customers/${customer.id}`);
   }

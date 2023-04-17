@@ -8,8 +8,8 @@ import EditNote from "./components/EditNote";
 
 const RouteSwitch = () => {
 
-  const updateCustomer = async (id, name, email, phone, status) => {
-    await updateCustomerOnServer(id, name, email, phone, status);
+  const updateCustomer = async (customer, id, name, email, phone, status) => {
+    await updateCustomerOnServer(customer, id, name, email, phone, status);
   }
 
   return (

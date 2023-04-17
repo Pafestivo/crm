@@ -59,7 +59,7 @@ const EditCustomer = ({ updateCustomer }) => {
       return;
     }
     setLoading(true);
-    await updateCustomer(customer.id, name, email, phone, status);
+    await updateCustomer(customer, customer.id, name, email, phone, status);
     setLoading(false);
     navigate(`/customers/${customer.id}`);
   }
