@@ -106,7 +106,6 @@ const deleteNoteFromServer = async (customerId, noteId, currentCustomer) => {
 }
 
 
-// Edit Note - Work In Progress
 const updateNoteOnServer = async (customer, noteId, newNote) => {
   const updatedNotes = customer.notes.map((note) => {
     if (note.id === noteId) {
@@ -129,6 +128,7 @@ const updateNoteOnServer = async (customer, noteId, newNote) => {
     },
     body: JSON.stringify({
       ...customer,
+      lastChange: formattedCurrentTime,
       notes: updatedNotes
     })
   });
