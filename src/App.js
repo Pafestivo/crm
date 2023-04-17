@@ -38,11 +38,11 @@ function App() {
   }
 
   return (
-    <div className="container">
+    <div className="container mt-5 bg-dark text-white d-flex flex-column align-items-center">
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div>
+        <div style={{width: "100%"}}>
           {customers.map((customer) => (
             <div key={customer.id}>
                 <CustomerRow key={customer.id} customer={customer} deleteCustomer={deleteCustomer} />
@@ -58,7 +58,7 @@ function App() {
           <button className="btn btn-danger" onClick={toggleAddNewCustomer}>Cancel</button>
         </div>
       ) : (
-        <button className="btn btn-success" onClick={toggleAddNewCustomer}>Add New Customer</button>
+        <button className="btn btn-success" style={{width: "200px"}} onClick={toggleAddNewCustomer}>Add New Customer</button>
       )}
     </div>
   );

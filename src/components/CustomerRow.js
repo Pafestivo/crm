@@ -7,15 +7,15 @@ const CustomerRow = ({ customer, deleteCustomer }) => {
 
   return (
     <div>
-      <div className="d-flex">
-        <Link to={`/customers/${customer.id}`}>
+      <div className="row align-items-center justify-content-center bg-light">
+        <Link className="col-md" to={`/customers/${customer.id}`}>
           <p>{customer.name}</p>
         </Link>
-          <p>{customer.email}</p>
-          <p>{customer.phone}</p>
-          <p>{customer.status}</p>
-          <p>{customer.lastChange}</p>
-        <button className="btn btn-primary" onClick={() => deleteCustomer(customer.id)}>Delete Customer</button>
+          <p className="col-md">{customer.email}</p>
+          <p className="col-md">{customer.phone}</p>
+          <p className="col-md">{customer.status}</p>
+          <p className="col-md">{customer.lastChange}</p>
+        <button className="col-md btn btn-primary " onClick={() => deleteCustomer(customer.id)}>Delete Customer</button>
       </div>
     </div>
   )
