@@ -38,13 +38,13 @@ function App() {
   }
 
   return (
-    <div>
+    <div className="container">
       {loading ? (
-        <p style={{margin: "100px"}}>Loading...</p>
+        <p>Loading...</p>
       ) : (
         <div>
           {customers.map((customer) => (
-            <div key={customer.id} style={{margin: "100px"}}>
+            <div key={customer.id}>
                 <CustomerRow key={customer.id} customer={customer} deleteCustomer={deleteCustomer} />
             </div>
         ))}
@@ -53,12 +53,12 @@ function App() {
       )}
 
       {loading ? null : showAddNewCustomer ? (
-        <div style={{margin: "100px"}}>
+        <div>
           <AddNewCustomer addCustomer={addCustomer} />
           <button className="btn btn-danger" onClick={toggleAddNewCustomer}>Cancel</button>
         </div>
       ) : (
-        <button className="btn btn-success" onClick={toggleAddNewCustomer} style={{marginLeft: "100px"}}>Add New Customer</button>
+        <button className="btn btn-success" onClick={toggleAddNewCustomer}>Add New Customer</button>
       )}
     </div>
   );

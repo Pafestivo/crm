@@ -41,7 +41,7 @@ const CustomerPage = ({ addNoteToServer }) => {
     
 
   return (
-    <div style={{margin: "100px auto" , width: "max-content"}}>
+    <div className="container">
       {loading ? (
         <p>Loading...</p>
       ) : (

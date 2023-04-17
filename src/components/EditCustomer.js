@@ -66,7 +66,7 @@ const EditCustomer = ({ updateCustomer }) => {
 
   
   return (
-    <div>
+    <div className="container">
       {loading ? (
         <h1>Loading...</h1>
       ) : (

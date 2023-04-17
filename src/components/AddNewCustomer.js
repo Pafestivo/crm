@@ -42,7 +42,7 @@ const AddNewCustomer = ({ addCustomer }) => {
 
   
   return (
-    <div>
+    <div className="container">
       <form>
         <input onInput={updateName} type="text" name="customer-name" placeholder="Customer Name" />
         <input onInput={updateEmail} type="email" name="customer-email" placeholder="Customer Email" />

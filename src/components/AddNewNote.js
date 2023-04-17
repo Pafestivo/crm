@@ -25,7 +25,7 @@ const AddNewNote = ({ addNote, toggleAddNewNote }) => {
 
   
   return (
-    <div>
+    <div className="container">
       <form>
         <input onInput={updateDescription} type="textArea" name="note-description" placeholder="Write your note here..." />
         <button onClick={handleSubmit} type="submit">Add Note</button>

@@ -2,11 +2,12 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from "react-router-dom";
 
+
 const CustomerRow = ({ customer, deleteCustomer }) => {
 
   return (
     <div>
-      <div>
+      <div className="d-flex">
         <Link to={`/customers/${customer.id}`}>
           <p>{customer.name}</p>
         </Link>
