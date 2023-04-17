@@ -4,6 +4,7 @@ import App from "./App";
 import { addNoteToServer, updateCustomerOnServer } from "./server-requests";
 import CustomerPage from "./components/CustomerPage";
 import EditCustomer from "./components/EditCustomer";
+import EditNote from "./components/EditNote";
 
 const RouteSwitch = () => {
 
@@ -18,6 +19,7 @@ const RouteSwitch = () => {
         <Route path="/customers" element={<App />} />
         <Route path="customers/:id" element={<CustomerPage addNoteToServer={addNoteToServer} />} />
         <Route path="customers/:id/edit" element={<EditCustomer updateCustomer={updateCustomer}/>} />
+        <Route path="customers/:id/:id/edit" element={<EditNote />} />
       </Routes>
     </BrowserRouter>
   )

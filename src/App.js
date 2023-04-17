@@ -4,7 +4,6 @@ import { getCustomers, addCustomerToServer, deleteCustomerFromServer } from "./s
 import CustomerRow from "./components/CustomerRow";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 function App() {
   const [customers, setCustomers] = useState([]);
   const [showAddNewCustomer, setShowAddNewCustomer] = useState(false);
@@ -41,11 +40,11 @@ function App() {
   return (
     <div>
       {loading ? (
-        <p>Loading...</p>
+        <p style={{margin: "100px"}}>Loading...</p>
       ) : (
         <div>
           {customers.map((customer) => (
-            <div key={customer.id}>
+            <div key={customer.id} style={{margin: "100px"}}>
                 <CustomerRow key={customer.id} customer={customer} deleteCustomer={deleteCustomer} />
             </div>
         ))}
@@ -54,12 +53,12 @@ function App() {
       )}
 
       {loading ? null : showAddNewCustomer ? (
-        <div>
+        <div style={{margin: "100px"}}>
           <AddNewCustomer addCustomer={addCustomer} />
-          <button onClick={toggleAddNewCustomer}>Cancel</button>
+          <button className="btn btn-danger" onClick={toggleAddNewCustomer}>Cancel</button>
         </div>
       ) : (
-        <button onClick={toggleAddNewCustomer}>Add New Customer</button>
+        <button className="btn btn-success" onClick={toggleAddNewCustomer} style={{marginLeft: "100px"}}>Add New Customer</button>
       )}
     </div>
   );

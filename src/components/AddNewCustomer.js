@@ -47,7 +47,7 @@ const AddNewCustomer = ({ addCustomer }) => {
         <input onInput={updateName} type="text" name="customer-name" placeholder="Customer Name" />
         <input onInput={updateEmail} type="email" name="customer-email" placeholder="Customer Email" />
         <input onInput={updatePhone} type="phone" name="customer-phone" placeholder="Customer Phone" />
-        <button onClick={handleSubmit} type="submit">Add Customer</button>
+        <button className="btn btn-success" onClick={handleSubmit} type="submit">Add Customer</button>
       </form>
     </div>
   );

@@ -99,22 +99,35 @@ const deleteNoteFromServer = async (customerId, noteId, currentCustomer) => {
 
 
 // Edit Note - Work In Progress
-// const updateNoteOnServer = async (customerId, noteId, note, currentCustomer) => {
-//   const response = await fetch(`${customersURL}/${customerId}`, {
-//     method: 'PATCH',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//       ...currentCustomer,
-//       notes: [
-//         ...currentCustomer.notes,
-//         currentCustomer.notes.find((note) => note.id === noteId).note = note,
-//       ]
-//     })
-//   });
-//   const customer = await response.json();
-//   return customer;
-// }
+const updateNoteOnServer = async (customer, noteId, newNote) => {
+  const updatedNotes = customer.notes.map((note) => {
+    if (note.id === +noteId) {
+      return { ...note, description: newNote, date: new Date().toLocaleString(undefined, {
+        year: '2-digit',
+        month: '2-digit',
+        day: '2-digit',
+        hour: 'numeric',
+        minute: 'numeric',
+      })};
+    } else {
+      return note;
+    }
+  });
 
-export { getCustomers, getCustomer, addCustomerToServer, deleteCustomerFromServer, updateCustomerOnServer, addNoteToServer,deleteNoteFromServer }
+  const response = await fetch(`${customersURL}/${customer.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ...customer,
+      notes: updatedNotes
+    })
+  });
+
+  const updatedCustomer = await response.json();
+  return updatedCustomer;
+}
+
+
+export { getCustomers, getCustomer, addCustomerToServer, deleteCustomerFromServer, updateCustomerOnServer, addNoteToServer,deleteNoteFromServer, updateNoteOnServer }

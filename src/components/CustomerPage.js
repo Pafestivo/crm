@@ -41,14 +41,14 @@ const CustomerPage = ({ addNoteToServer }) => {
     
 
   return (
-    <div>
+    <div style={{margin: "100px auto" , width: "max-content"}}>
       {loading ? (
         <p>Loading...</p>
       ) : (
         <div>
           <h1>Customer: {customer.name}</h1>
           <Link to={`/customers/${customer.id}/edit`}>
-          <button>Edit</button>
+          <button className="btn btn-primary">Edit</button>
           </Link>
           <p>Email: {customer.email}</p>
           <p>Phone: {customer.phone}</p>
@@ -59,9 +59,11 @@ const CustomerPage = ({ addNoteToServer }) => {
             {customer.notes ? 
             customer.notes.map((note) => (
               <div key={note.id}>
-                <p>{note.date} - {note.note}</p>
-                <button>Edit</button>
-                <button onClick={() => deleteNote(note.id)}>Delete</button>
+                <p>{note.date} - {note.description}</p>
+                <Link to={`/customers/${customer.id}/${note.id}/edit`}>
+                <button className="btn btn-primary">Edit</button>
+                </Link>
+                <button className="btn btn-danger" onClick={() => deleteNote(note.id)}>Delete</button>
               </div>
             )) : <p>No notes yet...</p>
             }
@@ -72,9 +74,9 @@ const CustomerPage = ({ addNoteToServer }) => {
               </div>
             ) : (
               <div>
-                <button onClick={toggleAddNewNote}>Add New Note</button>
+                <button className="btn btn-success" onClick={toggleAddNewNote}>Add New Note</button>
                 <Link to={`/`}>
-                <button>Go Back</button>
+                <button className="btn btn-secondary">Go Back</button>
                 </Link>
               </div>
               

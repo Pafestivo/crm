@@ -14,7 +14,7 @@ const CustomerRow = ({ customer, deleteCustomer }) => {
           <p>{customer.phone}</p>
           <p>{customer.status}</p>
           <p>{customer.lastChange}</p>
-        <button onClick={() => deleteCustomer(customer.id)}>Delete Customer</button>
+        <button className="btn btn-primary" onClick={() => deleteCustomer(customer.id)}>Delete Customer</button>
       </div>
     </div>
   )

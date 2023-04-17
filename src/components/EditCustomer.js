@@ -75,7 +75,8 @@ const EditCustomer = ({ updateCustomer }) => {
           <input onInput={updateName} type="text" name="customer-name" placeholder="Customer Name" defaultValue={customer.name} />
           <input onInput={updateEmail} type="email" name="customer-email" placeholder="Customer Email" defaultValue={customer.email} />
           <input onInput={updatePhone} type="phone" name="customer-phone" placeholder="Customer Phone" defaultValue={customer.phone} />
-          <button onClick={handleSubmit} type="submit">Update Customer</button>
+          <button className="btn btn-success" onClick={handleSubmit} type="submit">Update Customer</button>
+          <button className="btn btn-danger" onClick={() => navigate(`/customers/${customer.id}`)} type="submit">Cancel</button>
         </form>
       )}
     </div>
