@@ -17,7 +17,7 @@ const StatusDropdown = ({ customer, status, handleStatusUpdate }) => {
 
   useEffect(() => {
     const closeDropDown = (e) => {
-      if(e.target.attributes[0].name !== 'data-dropdown' && e.target.className !== 'dropdown-item') {
+      if(e.target?.attributes?.[0]?.name !== 'data-dropdown' && e.target.className !== 'dropdown-item') {
         setDropDownOpen(false);
       }
     }
