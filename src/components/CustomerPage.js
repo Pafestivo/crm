@@ -53,24 +53,10 @@ const CustomerPage = ({ addNoteToServer }) => {
 
           <Header title={`Viewing: ${customer.name}`} />
 
-          {/* <div className="customer-details">
-            <h1>Customer: {customer.name}</h1>
-            <p>Email: {customer.email}</p>
-            <p>Phone: {customer.phone}</p>
-            <p>Status: {customer.status}</p>
-            <p>Last modified: {customer.lastChange}</p>
-            <Link to={`/customers/${customer.id}/edit`}>
-              <button className="primary">Edit Customer</button>
-            </Link>
-          </div> */}
-
           <div className="customer-details">
             <CustomerRow customer={customer} />
           </div>
          
-          
-
-
           <div className="notes">
             <h2>Notes</h2>
             {customer.notes ? 

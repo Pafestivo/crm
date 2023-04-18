@@ -7,30 +7,15 @@
   margin-bottom: 30px;
 }
 
-/* .customer-details {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  margin: 0 auto;
-  font-size: 20px;
-  background-color: rgb(79, 162, 250);
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  padding: 20px 30px; 
-}
-
-.customer-details a {
-  width: 100%;
-}
-
-.customer-details a button {
-  width: 100%;
-  font-size: 25px;
-}  */
-
 .customer-details {
   width: 80%;
+}
+
+.notes {
+  width: 80%;
+  background-color: rgb(79, 162, 250);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
