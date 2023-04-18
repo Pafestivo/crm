@@ -49,7 +49,7 @@ const AddNewCustomer = ({ addCustomer, toggleAddNewCustomer }) => {
     <div className="add-customer-container">
       <form>
         <input onInput={updateName} type="text" name="customer-name" maxLength={13} placeholder="Customer Name" />
-        <input onInput={updateEmail} type="email" name="customer-email" placeholder="Customer Email" />
+        <input onInput={updateEmail} type="email" name="customer-email" placeholder="Customer Email" maxLength={26} />
         <input onInput={updatePhone} type="phone" name="customer-phone" placeholder="Customer Phone" />
       </form>
       <div className="add-customer-actions">

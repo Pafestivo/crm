@@ -48,7 +48,7 @@ function App() {
       <div className="table-container">
         {customers.map((customer) => (
           <div key={customer.id}>
-            <CustomerRow key={customer.id} customer={customer} deleteCustomer={deleteCustomer} />
+            <CustomerRow key={customer.id} customer={customer} deleteCustomer={deleteCustomer} isMainPage={true} />
           </div>
         ))}
       </div>

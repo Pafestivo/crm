@@ -6,7 +6,7 @@ import '../styles/dropdown.css';
 import StatusDropdown from "./StatusDropDown";
 
 
-const CustomerRow = ({ customer, deleteCustomer }) => {
+const CustomerRow = ({ customer, deleteCustomer, isMainPage }) => {
 
   const [status, setStatus] = useState(customer.status);
   const [currentCustomer, setCustomer] = useState(customer);
@@ -44,12 +44,22 @@ const CustomerRow = ({ customer, deleteCustomer }) => {
         </div>
       </div>
 
-      <div className="row-actions">
-        <Link to={`/customers/${customer.id}`}>
-          <button className="success">View Customer</button>
-        </Link>
-        <button className="danger" onClick={() => deleteCustomer(customer.id)}>Delete Customer</button>
-      </div>
+      
+      {isMainPage ? (
+        <div className="row-actions">
+          <Link to={`/customers/${customer.id}`}>
+            <button className="success">View Customer</button>
+          </Link>
+          <button className="danger" onClick={() => deleteCustomer(customer.id)}>Delete Customer</button>
+        </div>
+      ) : (
+        <div className="row-actions">
+          <Link to={`/customers/${customer.id}/edit`}>
+            <button className="primary">Edit Customer</button>
+          </Link>
+        </div>
+      )}
+ 
       
     </div>
   )

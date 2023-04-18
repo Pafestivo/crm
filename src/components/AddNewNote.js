@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import '../styles/add-new-note.css'
 
 const AddNewNote = ({ addNote, toggleAddNewNote }) => {
 
@@ -25,11 +26,11 @@ const AddNewNote = ({ addNote, toggleAddNewNote }) => {
 
   
   return (
-    <div className="container">
+    <div className="note-form-container">
       <form>
-        <input onInput={updateDescription} type="textArea" name="note-description" placeholder="Write your note here..." />
-        <button onClick={handleSubmit} type="submit">Add Note</button>
-        <button onClick={toggleAddNewNote}>Cancel</button>
+        <textarea onInput={updateDescription} name="note-description" placeholder="Write your note here..." />
+        <button className="success" onClick={handleSubmit} type="submit">Add Note</button>
+        <button className="danger" onClick={toggleAddNewNote}>Cancel</button>
       </form>
     </div>
   );

@@ -58,11 +58,12 @@ const CustomerPage = ({ addNoteToServer }) => {
           </div>
          
           <div className="notes">
-            <h2>Notes</h2>
+            <h1>Notes</h1>
             {customer.notes ? 
             customer.notes.map((note) => (
-              <div key={note.id}>
-                <p>{note.date} - {note.description}</p>
+              <div key={note.id} className="note-row">
+                <p className="bold">{note.date}</p>
+                <p>{note.description}</p>
                 <Link to={`/customers/${customer.id}/${note.id}/edit`}>
                 <button className="primary">Edit</button>
                 </Link>
@@ -72,14 +73,12 @@ const CustomerPage = ({ addNoteToServer }) => {
             }
 
             {showAddNewNote ? (
-              <div>
                 <AddNewNote addNote={addNote} toggleAddNewNote={toggleAddNewNote} />
-              </div>
             ) : (
-              <div>
+              <div className="notes-actions">
                 <button className="success" onClick={toggleAddNewNote}>Add New Note</button>
                 <Link to={`/`}>
-                <button className="danger">Go Back</button>
+                  <button className="danger">Go Back</button>
                 </Link>
               </div>
               
