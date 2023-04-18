@@ -1,4 +1,5 @@
 const customersURL = 'https://crm-server-2ja0.onrender.com/customers';
+const schedulesUrl = 'https://crm-server-2ja0.onrender.com/schedules';
 const timeFormat = {
   year: '2-digit',
   month: '2-digit',
@@ -140,5 +141,25 @@ const updateNoteOnServer = async (customer, noteId, newNote) => {
   return updatedCustomer;
 }
 
+const addScheduleToServer = async (customerName, customerPhone, date, time) => {
 
-export { getCustomers, getCustomer, addCustomerToServer, deleteCustomerFromServer, updateCustomerOnServer, addNoteToServer,deleteNoteFromServer, updateNoteOnServer }
+  const randomId = crypto.randomUUID();
+  const response = await fetch(schedulesUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      id: randomId,
+      date: date,
+      time: time,
+      customer: customerName,
+      customerPhone: customerPhone,
+    })
+  });
+  const schedule = await response.json();
+  return schedule;
+}
+
+
+export { getCustomers, getCustomer, addCustomerToServer, deleteCustomerFromServer, updateCustomerOnServer, addNoteToServer,deleteNoteFromServer, updateNoteOnServer, addScheduleToServer }

@@ -40,3 +40,39 @@ a {
   color: white;
   cursor: pointer;
 }
+
+.call-later {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.4);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.call-later form {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 10px;
+  width: 80%;
+  height: 80%;
+  max-height: 300px;
+  max-width: 450px;
+}
+
+.call-later form > input {
+  width: 70%;
+  height: 30px
+}
+
+.call-later form > button {
+  width: 70%;
+  height: 45px;
+}
+

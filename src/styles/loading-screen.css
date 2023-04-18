@@ -9,6 +9,7 @@
   left: 0;
   right: 0;
   background-color: rgba(67, 147, 231, 0.4);
+  z-index: 1;
 }
 
 .fa-circle-notch {
