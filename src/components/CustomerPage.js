@@ -46,17 +46,18 @@ const CustomerPage = ({ addNoteToServer }) => {
 
   return (
     <div className="container">
-      {loading ? (
-        <LoadingScreen />
-      ) : (
-        <div className="customer-page-container">
+
+      {loading ? <LoadingScreen /> : null}
+
+      {customer ? (
+          <div className="customer-page-container">
 
           <Header title={`Viewing: ${customer.name}`} />
 
           <div className="customer-details">
             <CustomerRow customer={customer} />
           </div>
-         
+        
           <div className="notes">
             <h1>Notes</h1>
             {customer.notes ? 
@@ -85,6 +86,8 @@ const CustomerPage = ({ addNoteToServer }) => {
             )}
           </div>
         </div>
+      ) : (
+        null
       )}
     </div>
   )
