@@ -46,7 +46,7 @@ const AddNewCustomer = ({ addCustomer, toggleAddNewCustomer }) => {
 
   
   return (
-    <div className="customer-row add-customer-container">
+    <div className="add-customer-container">
       <form>
         <input onInput={updateName} type="text" name="customer-name" maxLength={13} placeholder="Customer Name" />
         <input onInput={updateEmail} type="email" name="customer-email" placeholder="Customer Email" />
