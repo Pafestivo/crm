@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AddNewCustomer from "./components/AddNewCustomer";
 import { getCustomers, addCustomerToServer, deleteCustomerFromServer } from "./server-requests";
 import CustomerRow from "./components/CustomerRow";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "./styles/app.css";
 
 function App() {
   const [customers, setCustomers] = useState([]);
@@ -38,11 +38,18 @@ function App() {
   }
 
   return (
-    <div className="container mt-5 bg-dark text-white d-flex flex-column align-items-center">
+    <div className="app-container">
+      {loading ? null : (
+        <div className="header">
+          <h1>Your Customers</h1>
+        </div>
+          )}
+
+
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div style={{width: "100%"}}>
+        <div className="table-container">
           {customers.map((customer) => (
             <div key={customer.id}>
                 <CustomerRow key={customer.id} customer={customer} deleteCustomer={deleteCustomer} />
@@ -53,12 +60,11 @@ function App() {
       )}
 
       {loading ? null : showAddNewCustomer ? (
-        <div>
-          <AddNewCustomer addCustomer={addCustomer} />
-          <button className="btn btn-danger" onClick={toggleAddNewCustomer}>Cancel</button>
+        <div style={{width: "100%"}}>
+          <AddNewCustomer addCustomer={addCustomer} toggleAddNewCustomer={toggleAddNewCustomer} />
         </div>
       ) : (
-        <button className="btn btn-success" style={{width: "200px"}} onClick={toggleAddNewCustomer}>Add New Customer</button>
+        <button className="success" onClick={toggleAddNewCustomer}>Add New Customer</button>
       )}
     </div>
   );

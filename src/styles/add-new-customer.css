@@ -1,0 +1,76 @@
+.add-customer-container {
+  width: 450px;
+}
+
+.add-customer-container form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  width: 100%;
+}
+
+.add-customer-container form input {
+  padding: 10px;
+  font-size: 20px;
+  border: 1px solid transparent;
+  background-color: transparent;
+  border-radius: 5px;
+  box-shadow: 10px;
+  color: #000;
+}
+
+.add-customer-actions {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  width: 100%;
+}
+
+.add-customer-container form input:focus {
+  outline: none;
+  border-bottom: 1px solid #000;
+}
+
+::placeholder {
+  color: rgb(82, 79, 79);
+}
+
+/* remove background from input autofill */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+@media only screen and (min-width: 1200px) {
+  .add-customer-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+  }
+
+  .add-customer-container form {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .add-customer-container form input {
+    height: 40px;
+  }
+
+  .add-customer-actions {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    width: 900px;
+  }
+
+  .add-customer-actions button {
+    width: 100%;
+  }
+
+}

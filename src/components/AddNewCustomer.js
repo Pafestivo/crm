@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import '../styles/add-new-customer.css';
 
-const AddNewCustomer = ({ addCustomer }) => {
+const AddNewCustomer = ({ addCustomer, toggleAddNewCustomer }) => {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -42,13 +43,16 @@ const AddNewCustomer = ({ addCustomer }) => {
 
   
   return (
-    <div className="container">
+    <div className="customer-row add-customer-container">
       <form>
-        <input onInput={updateName} type="text" name="customer-name" placeholder="Customer Name" />
+        <input onInput={updateName} type="text" name="customer-name" maxLength={13} placeholder="Customer Name" />
         <input onInput={updateEmail} type="email" name="customer-email" placeholder="Customer Email" />
         <input onInput={updatePhone} type="phone" name="customer-phone" placeholder="Customer Phone" />
-        <button className="btn btn-success" onClick={handleSubmit} type="submit">Add Customer</button>
       </form>
+      <div className="add-customer-actions">
+          <button className="success" onClick={handleSubmit} type="submit">Add Customer</button>
+          <button className="danger" onClick={toggleAddNewCustomer}>Cancel</button>
+        </div>
     </div>
   );
 }
