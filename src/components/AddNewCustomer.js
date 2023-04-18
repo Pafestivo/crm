@@ -39,6 +39,9 @@ const AddNewCustomer = ({ addCustomer, toggleAddNewCustomer }) => {
     }
 
     addCustomer(name, email, phone);
+    setName('');
+    setEmail('');
+    setPhone('');
   }
 
   

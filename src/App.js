@@ -3,6 +3,7 @@ import AddNewCustomer from "./components/AddNewCustomer";
 import { getCustomers, addCustomerToServer, deleteCustomerFromServer } from "./server-requests";
 import CustomerRow from "./components/CustomerRow";
 import "./styles/app.css";
+import LoadingScreen from "./components/LoadingScreen";
 
 function App() {
   const [customers, setCustomers] = useState([]);
@@ -39,27 +40,22 @@ function App() {
 
   return (
     <div className="app-container">
-      {loading ? null : (
-        <div className="header">
-          <h1>Your Customers</h1>
-        </div>
-          )}
+      {loading ? <LoadingScreen /> : null}
 
+      <div className="header">
+        <h1>Your Customers</h1>
+      </div>
 
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className="table-container">
-          {customers.map((customer) => (
-            <div key={customer.id}>
-                <CustomerRow key={customer.id} customer={customer} deleteCustomer={deleteCustomer} />
-            </div>
+      <div className="table-container">
+        {customers.map((customer) => (
+          <div key={customer.id}>
+            <CustomerRow key={customer.id} customer={customer} deleteCustomer={deleteCustomer} />
+          </div>
         ))}
-        </div>
+      </div>
 
-      )}
 
-      {loading ? null : showAddNewCustomer ? (
+      {showAddNewCustomer ? (
         <div style={{width: "100%"}}>
           <AddNewCustomer addCustomer={addCustomer} toggleAddNewCustomer={toggleAddNewCustomer} />
         </div>
