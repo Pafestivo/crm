@@ -4,6 +4,7 @@ import { getCustomers, addCustomerToServer, deleteCustomerFromServer } from "./s
 import CustomerRow from "./components/CustomerRow";
 import "./styles/app.css";
 import LoadingScreen from "./components/LoadingScreen";
+import Header from "./components/Header";
 
 function App() {
   const [customers, setCustomers] = useState([]);
@@ -42,9 +43,7 @@ function App() {
     <div className="app-container">
       {loading ? <LoadingScreen /> : null}
 
-      <div className="header">
-        <h1>Your Customers</h1>
-      </div>
+      <Header title='Your Customers' />
 
       <div className="table-container">
         {customers.map((customer) => (

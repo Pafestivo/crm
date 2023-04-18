@@ -38,3 +38,8 @@ button {
 .success:hover {
   background-color: rgb(35, 153, 62);
 }
+
+.primary {
+  background-color: rgb(35, 135, 153);
+  border-color: rgb(35, 135, 153);
+}

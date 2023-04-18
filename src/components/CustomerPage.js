@@ -4,6 +4,10 @@ import { getCustomer } from "../server-requests";
 import { Link } from "react-router-dom";
 import AddNewNote from "./AddNewNote";
 import { deleteNoteFromServer } from "../server-requests";
+import LoadingScreen from "./LoadingScreen";
+import Header from "./Header";
+import "../styles/customer-page.css";
+import CustomerRow from "./CustomerRow";
 
 const CustomerPage = ({ addNoteToServer }) => {
 
@@ -43,27 +47,40 @@ const CustomerPage = ({ addNoteToServer }) => {
   return (
     <div className="container">
       {loading ? (
-        <p>Loading...</p>
+        <LoadingScreen />
       ) : (
-        <div>
-          <h1>Customer: {customer.name}</h1>
-          <Link to={`/customers/${customer.id}/edit`}>
-          <button className="btn btn-primary">Edit</button>
-          </Link>
-          <p>Email: {customer.email}</p>
-          <p>Phone: {customer.phone}</p>
-          <p>Status: {customer.status}</p>
-          <p>Last modified: {customer.lastChange}</p>
-          <div>
+        <div className="customer-page-container">
+
+          <Header title={`Viewing: ${customer.name}`} />
+
+          {/* <div className="customer-details">
+            <h1>Customer: {customer.name}</h1>
+            <p>Email: {customer.email}</p>
+            <p>Phone: {customer.phone}</p>
+            <p>Status: {customer.status}</p>
+            <p>Last modified: {customer.lastChange}</p>
+            <Link to={`/customers/${customer.id}/edit`}>
+              <button className="primary">Edit Customer</button>
+            </Link>
+          </div> */}
+
+          <div className="customer-details">
+            <CustomerRow customer={customer} />
+          </div>
+         
+          
+
+
+          <div className="notes">
             <h2>Notes</h2>
             {customer.notes ? 
             customer.notes.map((note) => (
               <div key={note.id}>
                 <p>{note.date} - {note.description}</p>
                 <Link to={`/customers/${customer.id}/${note.id}/edit`}>
-                <button className="btn btn-primary">Edit</button>
+                <button className="primary">Edit</button>
                 </Link>
-                <button className="btn btn-danger" onClick={() => deleteNote(note.id)}>Delete</button>
+                <button className="danger" onClick={() => deleteNote(note.id)}>Delete</button>
               </div>
             )) : <p>No notes yet...</p>
             }
@@ -74,9 +91,9 @@ const CustomerPage = ({ addNoteToServer }) => {
               </div>
             ) : (
               <div>
-                <button className="btn btn-success" onClick={toggleAddNewNote}>Add New Note</button>
+                <button className="success" onClick={toggleAddNewNote}>Add New Note</button>
                 <Link to={`/`}>
-                <button className="btn btn-secondary">Go Back</button>
+                <button className="danger">Go Back</button>
                 </Link>
               </div>
               
