@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { addScheduleToServer, updateCustomerOnServer } from "../server-requests";
 import LoadingScreen from "./LoadingScreen";
 
 const StatusDropdown = ({ customer, status, handleStatusUpdate }) => {
 
-  const location = useLocation();
+  const customerUrl = `https://${window.location.hostname}/customers/${customer.id}`;
   const [dropDownOpen, setDropDownOpen] = useState(false);
   const [callLater, setCallLater] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -35,7 +34,6 @@ const StatusDropdown = ({ customer, status, handleStatusUpdate }) => {
     if(e.target.innerText === 'Call later') {
       setCallLater(true);
       setDropDownOpen(false);
-      console.log(window.location)
       return;
     }
 
@@ -83,7 +81,7 @@ const StatusDropdown = ({ customer, status, handleStatusUpdate }) => {
     setLoading(true);
     await updateCustomerOnServer(customer, customer.id, customer.name, customer.email, customer.phone, 'Call later');
     handleStatusUpdate('Call later');
-    addScheduleToServer(customer.name, customer.phone, date, time, customer.id)
+    addScheduleToServer(customer.name, date, time, customerUrl)
     setCallLater(false);
     setLoading(false);
   }

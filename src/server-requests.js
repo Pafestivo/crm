@@ -141,7 +141,7 @@ const updateNoteOnServer = async (customer, noteId, newNote) => {
   return updatedCustomer;
 }
 
-const addScheduleToServer = async (customerName, customerPhone, date, time, customerId) => {
+const addScheduleToServer = async (customerName, date, time, customerUrl) => {
 
   const randomId = crypto.randomUUID();
   const response = await fetch(schedulesUrl, {
@@ -151,11 +151,10 @@ const addScheduleToServer = async (customerName, customerPhone, date, time, cust
     },
     body: JSON.stringify({
       id: randomId,
-      customerId: customerId,
+      customerUrl: customerUrl,
       date: date,
       time: time,
       customer: customerName,
-      customerPhone: customerPhone,
     })
   });
   const schedule = await response.json();
