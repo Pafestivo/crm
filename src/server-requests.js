@@ -1,4 +1,5 @@
-const customersURL = 'https://crm-server-2ja0.onrender.com/customers';
+const customersURL = 'http://localhost:3000/customers/';
+const notesURL = 'http://localhost:3000/notes/';
 const schedulesUrl = 'https://crm-server-2ja0.onrender.com/schedules';
 const timeFormat = {
   year: '2-digit',
@@ -32,9 +33,7 @@ const addCustomerToServer = async (name, email, phone) => {
       name: name,
       email: email,
       phone: phone,
-      status: 'Pick a status',
-      lastChange: new Date().toLocaleString(undefined, timeFormat)
-
+      status: 'Select a status'
     })
   });
   const customer = await response.json();
@@ -61,84 +60,60 @@ const updateCustomerOnServer = async (customer, id, name, email, phone, status) 
       email: email,
       phone: phone,
       status: status,
-      lastChange: new Date().toLocaleString(undefined, timeFormat)
-
     })
   });
   const updatedCustomer = await response.json();
   return updatedCustomer;
 }
 
-const addNoteToServer = async (customerId, noteDescription, currentCustomer) => {
-  const response = await fetch(`${customersURL}/${customerId}`, {
-    method: 'PATCH',
+const getCustomerNotes = async (id) => {
+  const response = await fetch(`${notesURL}?customer_id=${id}`);
+  const notes = await response.json();
+  return notes;
+}
+
+const getSingleNote = async (id) => {
+  const response = await fetch(`${notesURL}/${id}`);
+  const note = await response.json();
+  return note;
+}
+
+const updateNoteOnServer = async (noteId, newDescription) => {
+  const response = await fetch(`${notesURL}${noteId}`, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      ...currentCustomer,
-      lastChange: new Date().toLocaleString(undefined, timeFormat)
-,
-      notes: currentCustomer.notes ? [
-        ...currentCustomer.notes,
-        {
-          id: crypto.randomUUID(),
-          description: noteDescription,
-          date: new Date().toLocaleString(undefined, timeFormat)
+      description: newDescription,
+      date: new Date().toLocaleString(undefined, timeFormat)
+    })
+  });
+  const note = await response.json();
+  return note;
+}
 
-        }
-      ] : [{
-          id: crypto.randomUUID(),
-          description: noteDescription,
-          date: new Date().toLocaleString(undefined, timeFormat)
-
-        }]
+const addNoteToServer = async (customerId, noteDescription) => {
+  const response = await fetch(notesURL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      customer_id: customerId,
+      description: noteDescription,
     })
   });
   const customer = await response.json();
   return customer;
 }
 
-const deleteNoteFromServer = async (customerId, noteId, currentCustomer) => {
-  const response = await fetch(`${customersURL}/${customerId}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      ...currentCustomer,
-      notes: currentCustomer.notes.filter((note) => note.id !== noteId)
-    })
+const deleteNoteFromServer = async (noteId) => {
+  const response = await fetch(`${notesURL}/${noteId}`, {
+    method: 'DELETE',
   });
-  const customer = await response.json();
-  return customer;
-}
-
-
-const updateNoteOnServer = async (customer, noteId, newNote) => {
-  const updatedNotes = customer.notes.map((note) => {
-    if (note.id === noteId) {
-      return { ...note, description: newNote, date: new Date().toLocaleString(undefined, timeFormat)};
-    } else {
-      return note;
-    }
-  });
-
-  const response = await fetch(`${customersURL}/${customer.id}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      ...customer,
-      lastChange: new Date().toLocaleString(undefined, timeFormat)
-,
-      notes: updatedNotes
-    })
-  });
-
-  const updatedCustomer = await response.json();
-  return updatedCustomer;
+  const note = await response.json();
+  return note;
 }
 
 const addScheduleToServer = async (customerName, date, time, customerUrl) => {
@@ -162,4 +137,4 @@ const addScheduleToServer = async (customerName, date, time, customerUrl) => {
 }
 
 
-export { getCustomers, getCustomer, addCustomerToServer, deleteCustomerFromServer, updateCustomerOnServer, addNoteToServer,deleteNoteFromServer, updateNoteOnServer, addScheduleToServer }
+export { getCustomers, getCustomer, addCustomerToServer, deleteCustomerFromServer, updateCustomerOnServer, getCustomerNotes, getSingleNote, addNoteToServer,deleteNoteFromServer, updateNoteOnServer, addScheduleToServer,  }

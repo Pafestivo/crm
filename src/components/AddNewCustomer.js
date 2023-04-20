@@ -25,8 +25,13 @@ const AddNewCustomer = ({ addCustomer, toggleAddNewCustomer }) => {
     e.preventDefault();
 
     // Validation
+    const punctuations = ['!', '#', '$', '%', '^', '&', '*', '(', ')', '=', '+', '[', ']', '{', '}', '|', ';', ':', '"', "'", '<', '>', ',', '?', '/', '`', '~'];
     if(!name || !email || !phone) {
       alert('Please fill out all fields');
+      return;
+    }
+    if(name.contains(punctuations) || email.contains(punctuations)) {
+      alert('Please remove punctuations');
       return;
     }
     if(!email.includes('@') || !email.includes('.')) {

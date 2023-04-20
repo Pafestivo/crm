@@ -11,6 +11,7 @@ const CustomerRow = ({ customer, deleteCustomer, isMainPage }) => {
   const [status, setStatus] = useState(customer.status);
   const [currentCustomer, setCustomer] = useState(customer);
 
+
   const handleStatusUpdate = async (newStatus) => {
     setStatus(newStatus);
     const updatedCustomer = await getCustomer(customer.id)

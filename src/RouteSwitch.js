@@ -19,7 +19,7 @@ const RouteSwitch = () => {
         <Route path="/customers" element={<App />} />
         <Route path="customers/:id" element={<CustomerPage addNoteToServer={addNoteToServer} />} />
         <Route path="customers/:id/edit" element={<EditCustomer updateCustomer={updateCustomer}/>} />
-        <Route path="customers/:id/:id/edit" element={<EditNote />} />
+        <Route path="notes/:id" element={<EditNote />} />
       </Routes>
     </BrowserRouter>
   )
