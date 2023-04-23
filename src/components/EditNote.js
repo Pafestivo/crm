@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getSingleNote, updateNoteOnServer } from "../server-requests";
+import '../styles/edit-note.css'
+import LoadingScreen from "./LoadingScreen";
+import Header from "./Header";
 
 const EditNote = () => {
   const { id } = useParams();
@@ -10,11 +13,18 @@ const EditNote = () => {
   const [noteDescription, setNoteDescription] = useState('');
   const [note, setNote] = useState(null);
 
-  const getNote = async () => {
-    const currentNote = await getSingleNote(id);
-    setNote(currentNote);
-    setLoading(false);
-  }
+  const getNote = useCallback(async () => {
+    try {
+      const currentNote = await getSingleNote(id);
+      setNote(currentNote);
+      setLoading(false);
+      
+    } catch(error) {
+      console.log(error)
+      setLoading(false);
+    }
+    
+  }, [id])
 
   const updateNote = (e) => {
     setNoteDescription(e.target.value);
@@ -34,21 +44,26 @@ const EditNote = () => {
 
   useEffect(() => {
     getNote();
-  }, [])
+  }, [getNote])
     
 
   return(
     <div className="container">
-      {loading ? (
-        <h1>Loading...</h1>
+
+      <Header title={'Edit Note'} />
+
+      {loading ? <LoadingScreen /> : null}
+
+      {note ? (
+        <div>
+          <form className="edit-note">
+            <textarea defaultValue={note.description} onChange={updateNote} />
+            <button type="submit" className="btn success" onClick={handleSubmit}>Save</button>
+            <button onClick={() => navigate(`/customers/${note.customer_id}`)} className="btn danger">Cancel</button>
+          </form>
+        </div>
         ) : (
-          <div>
-            <form>
-              <input type="textarea" defaultValue={note.description} onChange={updateNote} />
-              <button type="submit" className="btn btn-success" onClick={handleSubmit}>Save</button>
-            </form>
-            <button onClick={() => navigate(`/customers/${note.customer_id}`)} className="btn btn-danger">Cancel</button>
-          </div>
+          null
         )}
     </div>
 
