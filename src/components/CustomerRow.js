@@ -6,7 +6,7 @@ import '../styles/dropdown.css';
 import StatusDropdown from "./StatusDropDown";
 
 
-const CustomerRow = ({ customer, deleteCustomer, isMainPage, setSchedule }) => {
+const CustomerRow = ({ customer, deleteCustomer, isMainPage, setSchedules }) => {
 
   const [status, setStatus] = useState(customer.status);
   const [currentCustomer, setCustomer] = useState(customer);
@@ -36,7 +36,7 @@ const CustomerRow = ({ customer, deleteCustomer, isMainPage, setSchedule }) => {
 
         <div className="info-field">
           <p>Status:</p>
-          <StatusDropdown customer={currentCustomer} status={status} handleStatusUpdate={handleStatusUpdate} setSchedule={setSchedule} />
+          <StatusDropdown customer={currentCustomer} status={status} handleStatusUpdate={handleStatusUpdate} setSchedules={setSchedules} />
         </div>
 
         <div className="info-field">

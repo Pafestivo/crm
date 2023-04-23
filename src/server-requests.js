@@ -154,7 +154,7 @@ const addScheduleToServer = async (customerUrl, date, time, customerName, custom
       customerUrl: customerUrl,
       date: date,
       time: time,
-      customer: customerName,
+      customerName: customerName,
       customer_id: customer_id
     })
   });

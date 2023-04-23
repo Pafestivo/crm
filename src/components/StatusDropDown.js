@@ -3,7 +3,7 @@ import { updateCustomerOnServer } from "../server-requests";
 import LoadingScreen from "./LoadingScreen";
 import CallLaterPopUp from "./CallLaterPopUp";
 
-const StatusDropdown = ({ customer, status, handleStatusUpdate, setSchedule }) => {
+const StatusDropdown = ({ customer, status, handleStatusUpdate, setSchedules }) => {
 
   const [dropDownOpen, setDropDownOpen] = useState(false);
   const [callLater, setCallLater] = useState(false);
@@ -49,7 +49,7 @@ const StatusDropdown = ({ customer, status, handleStatusUpdate, setSchedule }) =
       {loading ? <LoadingScreen /> : null}
 
       {callLater ? (
-        <CallLaterPopUp setLoading={setLoading} customer={customer} handleStatusUpdate={handleStatusUpdate} setCallLater={setCallLater} setSchedule={setSchedule} />
+        <CallLaterPopUp setLoading={setLoading} customer={customer} handleStatusUpdate={handleStatusUpdate} setCallLater={setCallLater} setSchedules={setSchedules} />
       ) : null}
 
       <div className="menu-trigger" onClick={toggleDropDown}>
