@@ -1,6 +1,6 @@
-const customersURL = 'http://localhost:3000/customers/';
-const notesURL = 'http://localhost:3000/notes/';
-const schedulesUrl = 'http://localhost:3000/schedules';
+const customersURL = 'https://crm-server-2ja0.onrender.com/customers/';
+const notesURL = 'https://crm-server-2ja0.onrender.com/notes/';
+const schedulesUrl = 'https://crm-server-2ja0.onrender.com/schedules';
 const timeFormat = {
   year: '2-digit',
   month: '2-digit',
