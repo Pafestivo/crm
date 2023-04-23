@@ -36,7 +36,7 @@ const CustomerRow = ({ customer, deleteCustomer, isMainPage, setSchedules }) => 
 
         <div className="info-field">
           <p>Status:</p>
-          <StatusDropdown customer={currentCustomer} status={status} handleStatusUpdate={handleStatusUpdate} setSchedules={setSchedules} />
+          <StatusDropdown customer={currentCustomer} status={status} handleStatusUpdate={handleStatusUpdate} setSchedules={setSchedules} isMainPage={isMainPage} />
         </div>
 
         <div className="info-field">

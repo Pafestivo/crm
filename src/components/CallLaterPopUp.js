@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { addScheduleToServer, getCustomerScheduleFromServer, updateCustomerOnServer, updateScheduleOnServer } from "../server-requests";
 
-const CallLaterPopUp = ({ setLoading, customer, handleStatusUpdate, setCallLater, setSchedules, schedule, edit=false }) => {
+const CallLaterPopUp = ({ setLoading, customer, handleStatusUpdate, setCallLater, setSchedules, schedule, edit, isMainPage }) => {
 
   const customerUrl = `https://${window.location.hostname}/customers/${customer.id}`;
   const [date, setDate] = useState('');
@@ -48,9 +48,12 @@ const CallLaterPopUp = ({ setLoading, customer, handleStatusUpdate, setCallLater
     } else {
       await updateScheduleOnServer(schedule.id, date, time)
     }
+
+    if(!isMainPage) {
+      const newSchedule = await getCustomerScheduleFromServer(customer.id);
+      setSchedules(newSchedule);
+    }
     
-    const newSchedule = await getCustomerScheduleFromServer(customer.id);
-    setSchedules(newSchedule);
     setCallLater(false);
     setLoading(false);
   }
