@@ -3,24 +3,9 @@ import { addScheduleToServer, getCustomerScheduleFromServer, updateCustomerOnSer
 
 const CallLaterPopUp = ({ setLoading, customer, handleStatusUpdate, setCallLater, setSchedules, schedule, edit=false }) => {
 
-
-  let dateInInputFormat = '';
-  if(edit) {
-    const formatDate = new Date(schedule.date).toLocaleString(undefined, {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    });
-  
-    const [month, day, year] = formatDate.split('/');
-    dateInInputFormat = `${year}-${month}-${day}`;
-  }
-    
-  
-
   const customerUrl = `https://${window.location.hostname}/customers/${customer.id}`;
-  const [date, setDate] = useState(dateInInputFormat);
-  const [time, setTime] = useState(edit ? schedule.time : '');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
 
   const updateDate = (e) => {
     const formattedDate = new Date(e.target.value).toLocaleString(undefined, {
