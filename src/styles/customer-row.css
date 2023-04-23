@@ -10,7 +10,8 @@
   background-color: rgb(79, 162, 250);
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  padding: 20px 30px;  
+  padding: 20px 30px;
+  overflow-x: hidden;
 }
 
 .row-title {

@@ -1,6 +1,6 @@
 const customersURL = 'http://localhost:3000/customers/';
 const notesURL = 'http://localhost:3000/notes/';
-const schedulesUrl = 'https://crm-server-2ja0.onrender.com/schedules';
+const schedulesUrl = 'http://localhost:3000/schedules';
 const timeFormat = {
   year: '2-digit',
   month: '2-digit',
@@ -116,25 +116,59 @@ const deleteNoteFromServer = async (noteId) => {
   return note;
 }
 
-const addScheduleToServer = async (customerName, date, time, customerUrl) => {
+const getCustomerScheduleFromServer = async (customerId) => {
+  const response = await fetch(`${schedulesUrl}?customer_id=${customerId}`);
+  const schedule = await response.json();
+  return schedule;
+}
 
-  const randomId = crypto.randomUUID();
-  const response = await fetch(schedulesUrl, {
-    method: 'POST',
+const getSingleSchedule = async (scheduleId) => {
+  const response = await fetch(`${schedulesUrl}/${scheduleId}`);
+  const schedule = await response.json();
+  return schedule;
+}
+
+const updateScheduleOnServer = async (scheduleId, newDate, newTime) => {
+  const response = await fetch(`${schedulesUrl}/${scheduleId}`, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      id: randomId,
-      customerUrl: customerUrl,
-      date: date,
-      time: time,
-      customer: customerName,
+      date: newDate,
+      time: newTime,
     })
   });
   const schedule = await response.json();
   return schedule;
 }
 
+const addScheduleToServer = async (customerUrl, date, time, customerName, customer_id) => {
 
-export { getCustomers, getCustomer, addCustomerToServer, deleteCustomerFromServer, updateCustomerOnServer, getCustomerNotes, getSingleNote, addNoteToServer,deleteNoteFromServer, updateNoteOnServer, addScheduleToServer,  }
+  const response = await fetch(schedulesUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      customerUrl: customerUrl,
+      date: date,
+      time: time,
+      customer: customerName,
+      customer_id: customer_id
+    })
+  });
+  const schedule = await response.json();
+  return schedule;
+}
+
+const deleteScheduleFromServer = async (scheduleId) => {
+  const response = await fetch(`${schedulesUrl}/${scheduleId}`, {
+    method: 'DELETE',
+  });
+  const schedule = await response.json();
+  return schedule;
+}
+
+
+export { getCustomers, getCustomer, addCustomerToServer, deleteCustomerFromServer, updateCustomerOnServer, getCustomerNotes, getSingleNote, addNoteToServer,deleteNoteFromServer, updateNoteOnServer, getCustomerScheduleFromServer, addScheduleToServer, deleteScheduleFromServer, updateScheduleOnServer, getSingleSchedule}
