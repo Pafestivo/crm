@@ -1,7 +1,7 @@
 .app-container {
   display: flex;
   flex-direction: column;
-  row-gap: 40px;
+  row-gap: 20px;
   align-items: center;
   justify-content: center;
   margin-bottom: 30px;
@@ -21,6 +21,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  row-gap: 5px;
 }
 
 .main-page-buttons {

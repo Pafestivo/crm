@@ -54,13 +54,12 @@ function App() {
       setCurrentPage(currentPage + 1);
 
     } else if(page === "previous") {
-      setCurrentPage(currentPage - 1);
       if (currentPage === 1) return;
+      setCurrentPage(currentPage - 1);
     } else {
       if(+page.target.value >  totalPages ||+page.target.value < 1) return;  
       setCurrentPage(+page.target.value)
     }
-
   }
 
   return (
@@ -79,11 +78,12 @@ function App() {
 
 
       {showAddNewCustomer ? (
-        <div style={{width: "100%"}}>
+        <div>
           <AddNewCustomer addCustomer={addCustomer} toggleAddNewCustomer={toggleAddNewCustomer} />
         </div>
       ) : (
         <div className="main-page-actions">
+          <p>page {currentPage} out of {totalPages}</p>
           <div className="main-page-buttons">
             <button className="btn primary pagi-btn" onClick={() => changePage('previous')}>{'<'}</button>
           
@@ -92,7 +92,6 @@ function App() {
           </div>
 
           <div className="choose-page">
-            <p>page {currentPage} out of {totalPages}</p>
             <p>Jump to page <input onChange={(e) => changePage(e)} type="number" defaultValue={currentPage} /></p>
           </div>
         </div>
