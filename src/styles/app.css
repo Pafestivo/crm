@@ -16,6 +16,40 @@
   max-width: 450px;
 }
 
+.main-page-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-page-buttons {
+  display: flex;
+  column-gap: 20px;
+}
+
+.pagi-btn {
+  font-size: 30px;
+  padding: 0 15px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.choose-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.choose-page p input {
+  width: 23px;
+  text-align: center;
+}
+
 @media only screen and (min-width: 768px) {
   .table-container {
     width: 60%;

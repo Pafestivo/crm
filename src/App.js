@@ -10,6 +10,8 @@ function App() {
   const [customers, setCustomers] = useState([]);
   const [showAddNewCustomer, setShowAddNewCustomer] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [customersPerPage] = useState(10);
 
   const loadCustomers = async () => {
     const customers = await getCustomers();
@@ -39,6 +41,28 @@ function App() {
     loadCustomers();
   }
 
+  // pagination
+  const indexOfLastCustomer = currentPage * customersPerPage;
+  const indexOfFirstCustomer = indexOfLastCustomer - customersPerPage;
+  const currentCustomers = customers.slice(indexOfFirstCustomer, indexOfLastCustomer);
+
+  const totalPages = Math.ceil(customers.length / customersPerPage);
+
+  const changePage = (page) => {
+    if(page === "next") {
+      if (currentPage === totalPages) return;
+      setCurrentPage(currentPage + 1);
+
+    } else if(page === "previous") {
+      setCurrentPage(currentPage - 1);
+      if (currentPage === 1) return;
+    } else {
+      if(+page.target.value >  totalPages ||+page.target.value < 1) return;  
+      setCurrentPage(+page.target.value)
+    }
+
+  }
+
   return (
     <div className="app-container">
       {loading ? <LoadingScreen /> : null}
@@ -46,7 +70,7 @@ function App() {
       <Header title='Your Customers' />
 
       <div className="table-container">
-        {customers.map((customer) => (
+        {currentCustomers.map((customer) => (
           <div key={customer.id}>
             <CustomerRow key={customer.id} customer={customer} deleteCustomer={deleteCustomer} isMainPage={true} />
           </div>
@@ -59,7 +83,19 @@ function App() {
           <AddNewCustomer addCustomer={addCustomer} toggleAddNewCustomer={toggleAddNewCustomer} />
         </div>
       ) : (
-        <button className="success" onClick={toggleAddNewCustomer}>Add New Customer</button>
+        <div className="main-page-actions">
+          <div className="main-page-buttons">
+            <button className="btn primary pagi-btn" onClick={() => changePage('previous')}>{'<'}</button>
+          
+            <button className="success" onClick={toggleAddNewCustomer}>Add New Customer</button>
+            <button className="btn primary pagi-btn" onClick={() => changePage('next')}>{'>'}</button>
+          </div>
+
+          <div className="choose-page">
+            <p>page {currentPage} out of {totalPages}</p>
+            <p>Jump to page <input onChange={(e) => changePage(e)} type="number" defaultValue={currentPage} /></p>
+          </div>
+        </div>
       )}
     </div>
   );
