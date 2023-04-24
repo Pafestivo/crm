@@ -68,7 +68,7 @@ function App() {
 
       <Header title='Your Customers' />
 
-      <div className="table-container">
+      <div data-testid="customers-container" className="table-container">
         {currentCustomers.map((customer) => (
           <div key={customer.id}>
             <CustomerRow key={customer.id} customer={customer} deleteCustomer={deleteCustomer} isMainPage={true} />
