@@ -25,13 +25,8 @@ const AddNewCustomer = ({ addCustomer, toggleAddNewCustomer }) => {
     e.preventDefault();
 
     // Validation
-    const punctuations = ['!', '#', '$', '%', '^', '&', '*', '(', ')', '=', '+', '[', ']', '{', '}', '|', ';', ':', '"', "'", '<', '>', ',', '?', '/', '`', '~'];
     if(!name || !email || !phone) {
       alert('Please fill out all fields');
-      return;
-    }
-    if(name.contains(punctuations) || email.contains(punctuations)) {
-      alert('Please remove punctuations');
       return;
     }
     if(!email.includes('@') || !email.includes('.')) {
@@ -53,8 +48,8 @@ const AddNewCustomer = ({ addCustomer, toggleAddNewCustomer }) => {
   return (
     <div className="add-customer-container">
       <form>
-        <input onInput={updateName} type="text" name="customer-name" maxLength={13} placeholder="Customer Name" />
-        <input onInput={updateEmail} type="email" name="customer-email" placeholder="Customer Email" maxLength={26} />
+        <input onInput={updateName} type="text" name="customer-name" placeholder="Customer Name" />
+        <input onInput={updateEmail} type="email" name="customer-email" placeholder="Customer Email" />
         <input onInput={updatePhone} type="phone" name="customer-phone" placeholder="Customer Phone" />
       </form>
       <div className="add-customer-actions">
