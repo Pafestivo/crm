@@ -1,36 +1,33 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom'; 
 import AddNewCustomer from '../components/AddNewCustomer';
+import userEvent from '@testing-library/user-event';
 
 
 describe('AddNewCustomer', () => {
-  test('should render input elements', () => {
-    render(
-      <AddNewCustomer />
-    )
-    const customerName = screen.getByPlaceholderText(/Customer Name/i);
-    const customerEmail = screen.getByPlaceholderText(/Customer Email/i);
-    const customerPhone = screen.getByPlaceholderText(/Customer Phone/i);
-    expect(customerName).toBeInTheDocument();
-    expect(customerEmail).toBeInTheDocument();
-    expect(customerPhone).toBeInTheDocument();
-  });
 
-  test('should be able to type in inputs', () => {
-    render(
-      <AddNewCustomer />
-    )
+  const user = userEvent.setup();
 
-    const customerName = screen.getByPlaceholderText(/Customer Name/i);
-    const customerEmail = screen.getByPlaceholderText(/Customer Email/i);
-    const customerPhone = screen.getByPlaceholderText(/Customer Phone/i);
 
-    fireEvent.change(customerName, { target: { value: 'John Doe'}});
-    fireEvent.change(customerEmail, { target: { value: 'john.doe@gmail.com'}});
-    fireEvent.change(customerPhone, { target: { value: '0524568957'}});
+  test('should add customer when form submitted', async () => {
+    const addCustomer = jest.fn();
+    render(<AddNewCustomer addCustomer={addCustomer} />);
+    
+    await waitFor( async () => {
+      const customerName = screen.getByPlaceholderText(/Customer Name/i);
+      const customerEmail = screen.getByPlaceholderText(/Customer Email/i);
+      const customerPhone = screen.getByPlaceholderText(/Customer Phone/i);
+  
+      
+      await user.type(customerName, 'John Doe');
+      await user.type(customerEmail, 'john.doe@gmail.com');
+      await user.type(customerPhone, '0524568957');
+    });
+    
 
-    expect(customerName.value).toBe('John Doe');
-    expect(customerEmail.value).toBe('john.doe@gmail.com');
-    expect(customerPhone.value).toBe('0524568957');
+    const submitBtn = screen.getByRole('button', { name: /Add Customer/i });
+    await user.click(submitBtn);
+    
+    expect(addCustomer).toHaveBeenCalled();
   });
 });

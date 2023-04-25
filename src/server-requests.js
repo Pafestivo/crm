@@ -1,6 +1,6 @@
-const customersURL = 'http://localhost:3000/customers/';
-const notesURL = 'http://localhost:3000/notes/';
-const schedulesUrl = 'http://localhost:3000/schedules';
+const customersURL = 'http://localhost:3001/customers/';
+const notesURL = 'http://localhost:3001/notes/';
+const schedulesUrl = 'http://localhost:3001/schedules';
 const timeFormat = {
   year: '2-digit',
   month: '2-digit',

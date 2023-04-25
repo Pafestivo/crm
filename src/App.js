@@ -16,6 +16,7 @@ function App() {
   const loadCustomers = async () => {
     const customers = await getCustomers();
     setCustomers(customers);
+    console.log(customers)
     setLoading(false);
   }
 
@@ -68,9 +69,9 @@ function App() {
 
       <Header title='Your Customers' />
 
-      <div data-testid="customers-container" className="table-container">
-        {currentCustomers.map((customer) => (
-          <div key={customer.id}>
+      <div className="table-container">
+        {currentCustomers.map((customer, index) => (
+          <div key={customer.id} data-testid={`customer-${index}`} >
             <CustomerRow key={customer.id} customer={customer} deleteCustomer={deleteCustomer} isMainPage={true} />
           </div>
         ))}
