@@ -16,7 +16,6 @@ function App() {
   const loadCustomers = async () => {
     const customers = await getCustomers();
     setCustomers(customers);
-    console.log(customers)
     setLoading(false);
   }
 

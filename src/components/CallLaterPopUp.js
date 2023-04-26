@@ -61,8 +61,8 @@ const CallLaterPopUp = ({ setLoading, customer, handleStatusUpdate, setCallLater
   return (
     <div className="call-later">
       <form>
-        <input type="date" onChange={updateDate} defaultValue={date} />
-        <input type="time" onInput={updateTime} defaultValue={time} />
+        <input type="date" onChange={updateDate} defaultValue={date} data-testid="date-field" />
+        <input type="time" onInput={updateTime} defaultValue={time} data-testid="time-field" />
         <button className="btn success" type="submit" onClick={SubmitDate}>Submit</button>
         <button className="btn danger" onClick={() => setCallLater(false)}>Cancel</button>
       </form>

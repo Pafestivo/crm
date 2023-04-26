@@ -3,7 +3,6 @@ import { rest } from 'msw'
 export const handlers = [
 
   rest.get('http://localhost:3001/customers/', (req, res, ctx) => {
-    console.log('handlers called!')
     return res(
       ctx.json([
           {

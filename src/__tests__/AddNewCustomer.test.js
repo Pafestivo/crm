@@ -28,6 +28,18 @@ describe('AddNewCustomer', () => {
     const submitBtn = screen.getByRole('button', { name: /Add Customer/i });
     await user.click(submitBtn);
     
-    expect(addCustomer).toHaveBeenCalled();
+    expect(addCustomer).toHaveBeenCalledWith('John Doe', 'john.doe@gmail.com', '0524568957');
+  });
+
+  test('should not add when fields are empty', async () => {
+    global.alert = jest.fn();
+    const addCustomer = jest.fn();
+    render(<AddNewCustomer addCustomer={addCustomer} />);
+
+    const submitBtn = screen.getByRole('button', { name: /Add Customer/i });
+    await user.click(submitBtn);
+    
+    expect(addCustomer).not.toHaveBeenCalled();
+    expect(global.alert).toHaveBeenCalled();
   });
 });
