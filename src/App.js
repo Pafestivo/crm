@@ -105,11 +105,9 @@ function App() {
         ))}
       </div>
 
-      {currentCustomers.length === 0 ? null : (
+      {(currentCustomers.length === 0 && searchQuery !== '') ? null : (
         showAddNewCustomer ? (
-          <div>
             <AddNewCustomer addCustomer={addCustomer} toggleAddNewCustomer={toggleAddNewCustomer} />
-          </div>
         ) : (
           <div className="main-page-actions">
             <p>page {currentPage} out of {totalPages}</p>
