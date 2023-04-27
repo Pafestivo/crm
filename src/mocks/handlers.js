@@ -20,6 +20,14 @@ export const handlers = [
             phone: '0554876958',
             status: 'Select a status',
             lastChange: '04/24/23, 06:31'
+          },
+          {
+            id: 3,
+            name: 'fella Doe',
+            email: 'fella@gmail.com',
+            phone: '0568475986',
+            status: 'call later',
+            lastChange: '04/24/23, 06:31'
           }
         ])
     )

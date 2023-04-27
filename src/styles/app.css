@@ -16,6 +16,15 @@
   max-width: 450px;
 }
 
+.table-container > input {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  height: 30px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
 .main-page-actions {
   display: flex;
   flex-direction: column;

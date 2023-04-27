@@ -12,10 +12,13 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [customersPerPage] = useState(10);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [customersToDisplay, setCustomersToDisplay] = useState([]);
 
   const loadCustomers = async () => {
     const customers = await getCustomers();
     setCustomers(customers);
+    setCustomersToDisplay(customers);
     setLoading(false);
   }
 
@@ -23,6 +26,20 @@ function App() {
   useEffect(() => {
     loadCustomers();
   }, []);
+
+  useEffect(() => {
+    if (searchQuery === '') {
+      setCustomersToDisplay(customers);
+      return;
+    }
+    const searchedCustomers = customers.filter(customer =>
+      Object.values(customer).some(value =>
+        typeof value === 'string' && value.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    );
+    setCustomersToDisplay(searchedCustomers);
+    setCurrentPage(1);
+  }, [searchQuery, customers]);
 
   const toggleAddNewCustomer = () => {
     setShowAddNewCustomer(!showAddNewCustomer);
@@ -44,9 +61,9 @@ function App() {
   // pagination
   const indexOfLastCustomer = currentPage * customersPerPage;
   const indexOfFirstCustomer = indexOfLastCustomer - customersPerPage;
-  const currentCustomers = customers.slice(indexOfFirstCustomer, indexOfLastCustomer);
+  const currentCustomers = customersToDisplay.slice(indexOfFirstCustomer, indexOfLastCustomer);
 
-  const totalPages = Math.ceil(customers.length / customersPerPage);
+  const totalPages = Math.ceil(customersToDisplay.length / customersPerPage);
 
   const changePage = (page) => {
     if(page === "next") {
@@ -62,6 +79,11 @@ function App() {
     }
   }
 
+  // search bar
+  const updateSearchQuery = (e) => {
+    setSearchQuery(e.target.value);
+  }
+
 
   return (
     <div className="app-container">
@@ -70,6 +92,12 @@ function App() {
       <Header title='Your Customers' />
 
       <div className="table-container">
+        <input onInput={updateSearchQuery} type="text" placeholder="Search customer" />
+
+        {currentCustomers.length === 0 ? (
+          <h1 style={{margin: "0 auto"}}>No customers found</h1>
+        ) : null}
+
         {currentCustomers.map((customer, index) => (
           <div key={customer.id} data-testid={`customer-${index}`} >
             <CustomerRow key={customer.id} customer={customer} deleteCustomer={deleteCustomer} isMainPage={true} />
@@ -77,25 +105,26 @@ function App() {
         ))}
       </div>
 
-
-      {showAddNewCustomer ? (
-        <div>
-          <AddNewCustomer addCustomer={addCustomer} toggleAddNewCustomer={toggleAddNewCustomer} />
-        </div>
-      ) : (
-        <div className="main-page-actions">
-          <p>page {currentPage} out of {totalPages}</p>
-          <div className="main-page-buttons">
-            <button className="btn primary pagi-btn" onClick={() => changePage('previous')}>{'<'}</button>
-          
-            <button className="success" onClick={toggleAddNewCustomer}>Add New Customer</button>
-            <button className="btn primary pagi-btn" onClick={() => changePage('next')}>{'>'}</button>
+      {currentCustomers.length === 0 ? null : (
+        showAddNewCustomer ? (
+          <div>
+            <AddNewCustomer addCustomer={addCustomer} toggleAddNewCustomer={toggleAddNewCustomer} />
           </div>
-
-          <div className="choose-page">
-            <p>Jump to page <input onChange={(e) => changePage(e)} type="number" defaultValue={currentPage} /></p>
+        ) : (
+          <div className="main-page-actions">
+            <p>page {currentPage} out of {totalPages}</p>
+            <div className="main-page-buttons">
+              <button className="btn primary pagi-btn" onClick={() => changePage('previous')}>{'<'}</button>
+            
+              <button className="success" onClick={toggleAddNewCustomer}>Add New Customer</button>
+              <button className="btn primary pagi-btn" onClick={() => changePage('next')}>{'>'}</button>
+            </div>
+  
+            <div className="choose-page">
+              <p>Jump to page <input onChange={(e) => changePage(e)} type="number" defaultValue={currentPage} /></p>
+            </div>
           </div>
-        </div>
+        )
       )}
     </div>
   );
