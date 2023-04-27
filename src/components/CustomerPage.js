@@ -97,56 +97,60 @@ const CustomerPage = ({ addNoteToServer }) => {
             <CustomerRow customer={customer} setSchedules={setSchedules} />
           </div>
 
-          <div className="customer-page-section">
-            <h1>Events</h1>
-            {schedules.length > 0 ? (
-              schedules.map(schedule => (
-                <div key={schedule.id} className="section-row">
-                  <p>{customer.name} has requested a call on {getTheDay(schedule.date)}<span className="inserted-date">({schedule.date})</span> at {schedule.time}.</p>
+          <div className="notes-and-events">
+            <div className="customer-page-section">
+              <h1>Events</h1>
+              {schedules.length > 0 ? (
+                schedules.map(schedule => (
+                  <div key={schedule.id} className="section-row">
+                    <p>{customer.name} has requested a call on {getTheDay(schedule.date)}<span className="inserted-date">({schedule.date})</span> at {schedule.time}.</p>
+                    <div className="buttons-container">
+                      <button className="btn primary" onClick={() => openEditPopUp(schedule.id)}>Edit Event</button>
+                      <button className="btn danger" onClick={() => deleteSchedule(schedule.id)}>Cancel Event</button>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p>No events for this customer yet.</p>
+              )}
+            </div>
+          
+            <div className="customer-page-section">
+              <h1>Notes</h1>
+              {notes.length > 0 ? 
+              notes.map((note) => (
+                <div key={note.id} className="section-row">
+                  <p className="bold">{note.date}</p>
+                  <p>{note.description}</p>
                   <div className="buttons-container">
-                    <button className="btn primary" onClick={() => openEditPopUp(schedule.id)}>Edit Event</button>
-                    <button className="btn danger" onClick={() => deleteSchedule(schedule.id)}>Cancel Event</button>
+                    <Link to={`/notes/${note.id}`}>
+                    <button className="primary">Edit</button>
+                    </Link>
+                    <button className="danger" onClick={() => deleteNote(note.id)}>Delete</button>
                   </div>
                 </div>
-              ))
-            ) : (
-              <p>No events for this customer yet.</p>
-            )}
-          </div>
-        
-          <div className="customer-page-section">
-            <h1>Notes</h1>
-            {notes.length > 0 ? 
-            notes.map((note) => (
-              <div key={note.id} className="section-row">
-                <p className="bold">{note.date}</p>
-                <p>{note.description}</p>
-                <div className="buttons-container">
-                  <Link to={`/notes/${note.id}`}>
-                  <button className="primary">Edit</button>
-                  </Link>
-                  <button className="danger" onClick={() => deleteNote(note.id)}>Delete</button>
-                </div>
-              </div>
-            )) : <p>No notes yet...</p>
-            }
+              )) : <p>No notes yet...</p>
+              }
 
-            {showAddNewNote ? (
-                <AddNewNote addNote={addNote} toggleAddNewNote={toggleAddNewNote} />
-            ) : (
-              <div className="notes-actions">
-                <button className="success" onClick={toggleAddNewNote}>Add New Note</button>
-                <Link to={`/`}>
-                  <button className="danger">Go Back</button>
-                </Link>
-              </div>
-              
-            )}
+              {showAddNewNote ? (
+                  <AddNewNote addNote={addNote} toggleAddNewNote={toggleAddNewNote} />
+              ) : (
+                <div className="notes-actions">
+                  <button className="success" onClick={toggleAddNewNote}>Add New Note</button>
+                  <Link to={`/`}>
+                    <button className="danger hidden-in-big-screen">Go Back</button>
+                  </Link>
+                </div>
+              )}
+          </div>
           </div>
         </div>
       ) : (
         null
       )}
+      <Link to={`/`}>
+        <button className="danger big-screen-only go-back-bottom">Go Back</button>
+      </Link>
     </div>
   )
 }
